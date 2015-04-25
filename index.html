@@ -6,8 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Anywhere editor</title>
         <link rel="stylesheet" href="http://sindresorhus.com/github-markdown-css/github-markdown.css" />
+        <style>.markdown-body{overflow: scroll;/*github-markdown fix*/}</style>
         <script src="https://cdn.rawgit.com/chjj/marked/master/marked.min.js"></script>
-        <script src="https://cdn.rawgit.com/vinyll/anywhere/master/dist/anywhere.js"></script>
+        <script src="./dist/anywhere.js"></script>
         <script>
         Anywhere = {
           user: "vinyll",
@@ -21,7 +22,7 @@
 
       <h1>Anywhere demo page</h1>
 
-      <p>Here's the readme.md rendered using Anywhere:</p>
+      <p>The content below is directly loaded from <a href="https://github.com/vinyll/anywhere/blob/master/README.md">https://github.com/vinyll/anywhere/blob/master/README.md</a></p>
       <hr />
 
       <!-- this is where the magic happens! -->
@@ -30,7 +31,13 @@
       </section>
 
       <hr />
-      <p>The rest of the main remains untouched.</p>
+      <p>This is the index demo again</p>
+      <p>
+        We can insert multiple contents in a single page.
+        See the one below for example, loaded from <a href="https://github.com/vinyll/anywhere/blob/master/demo-slot.md">https://github.com/vinyll/anywhere/blob/master/demo-slot.md</a>
+      </p>
+
+      <hr />
 
       <p data-anywhere="demo-slot"><em>demo-slot.md</em> is rendered in here.</p>
     </body>

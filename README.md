@@ -2,6 +2,8 @@
 
 This JavaScript client lib enables rendering any Markdown page hosted on Github inside of your HTML content.
 
+[View a demo](http://vinyll.github.io/anywhere/).
+
 ## Quickstart
 
 Add this before your closing `</head>`:

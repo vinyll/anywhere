@@ -20,8 +20,8 @@
         if (http.readyState === 4 && http.status === 200) {
           callback(http.responseText);
         } else if(http.status !== 200) {
-          throw new Error("'Anywhere' could not parse '{url}'.
-            Please check your 'Anywhere' configuration.".replace('{url}', url));
+          throw new Error("'Anywhere' could not parse '{url}'." +
+            "Please check your 'Anywhere' configuration.".replace('{url}', url));
         }
       }
       http.send();
@@ -29,11 +29,16 @@
   };
 
   window.addEventListener('load', function(event) {
-    var name = "";
+    var name = "", markedContent = "", nodeDisplay = "";
     [].forEach.call(document.querySelectorAll('[data-anywhere]'), function(node) {
       name = node.attributes['data-anywhere'].value;
       GithubExtractor.getContentFromFile(name, function(response) {
-        node.innerHTML = marked(response);
+        markedContent = marked(response);
+        nodeDisplay = node.style.display || window.getComputedStyle(node).display;
+        if(nodeDisplay === 'inline') {
+          markedContent = markedContent.substr(3, -4);
+        }
+        node.innerHTML = marked(markedContent);
       });
     });
   });

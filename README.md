@@ -42,6 +42,16 @@ The example below will therefore get the markdown content from _https:github.com
 See the [demo code](https://github.com/vinyll/anywhere/blob/gh-pages/index.html) to view a full working example or the [demo](http://vinyll.github.io/anywhere/) to see it in action.
 
 
+## Markdown conversion
+
+'Anywhere' uses [marked](https://github.com/chjj/marked) to convert Github's Markdown to HTML.
+
+> ### Inline / block types
+> 
+> Note that when you use `data-anywhere` attribute on a _inline_ tag (such as `<span>`, `<em>`) or if you forced that tag to `display: inline`, the Markdown content rendered will not have the `<p>` wrapper.
+> Therefore the HTML will not break and you can css-style properly.
+
+
 ## Usage
 
 With this lib you can use Github as a content editor with git powers and Github benefits.

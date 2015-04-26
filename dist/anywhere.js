@@ -34,20 +34,25 @@
   };
 
   window.addEventListener('load', function(event) {
-    var name = "", markedContent = "", nodeDisplay = "";
+    var name = "", markedContent = "", nodeDisplay = "", inlineContent = "";
 
     [].forEach.call(document.querySelectorAll('[data-anywhere]'), function(node) {
       name = node.attributes['data-anywhere'].value;
 
       GithubExtractor.getContentFromFile(name, function(response) {
-        nodeDisplay = node.style.display || window.getComputedStyle(node).display;
+        nodeDisplay = node.style.display
+                    || window.getComputedStyle(node).display;
         markedContent = marked(response);
 
+        // If the node is type 'inline', strip out the <p> tag from marked.
         if(nodeDisplay === 'inline') {
-          markedContent = markedContent.substr(3, -4);
+          inlineContent = markedContent.match(/^<p>(.*)<\/p>\s*$/);
+          if(inlineContent.length > 1) {
+            markedContent = inlineContent[1];
+          }
         }
 
-        node.innerHTML = marked(markedContent);
+        node.innerHTML = markedContent;
       });
     });
   });

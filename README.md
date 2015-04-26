@@ -1,6 +1,6 @@
 # Anywhere JS demo
 
-This is the demo branch of the [Anywhere lib](https://github.com/vinyll/anywhere/).
+This is the demo branch of the [Anywhere lib](https://github.com/vinyll/anywhere/) written in JavaScript.
 
 If you want to get this demo just run:
 

@@ -20,7 +20,7 @@
         if (http.readyState === 4 && http.status === 200) {
           callback(http.responseText);
         } else if(http.status !== 200) {
-          throw new Error("'Anywhere' could not parse '{url}'." +
+          throw new Error("'Anywhere' could not parse '{url}'."
             "Please check your 'Anywhere' configuration.".replace('{url}', url));
         }
       }

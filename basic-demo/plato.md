@@ -1,6 +1,8 @@
 Article about Plato
 ===================
 
+![Plato by Raphael](https://farm4.staticflickr.com/3627/3482110989_e09271cca6_o.jpg)
+
 Plato (*/ˈpleɪtoʊ/*; Greek: Πλάτων Plátōn "broad" pronounced [plá.tɔːn] in Classical Attic; 428/427 or 424/423 – 348/347 BCE) was a _philosopher_, as well as _mathematician_, in Classical Greece. He is considered an essential figure in the development of philosophy, especially the Western tradition, and he founded the Academy in Athens, the first institution of higher learning in the Western world. Along with his teacher _Socrates_ and his most famous student, _Aristotle_, Plato laid the foundations of Western philosophy and science.[2] Alfred North Whitehead once noted: "the safest general characterization of the European philosophical tradition is that it consists of a series of footnotes to Plato."[3]
 
 Plato's dialogues have been used to teach a range of subjects, including philosophy, logic, ethics, rhetoric, religion and mathematics. His lasting themes include Platonic love, the theory of forms, the five regimes, innate knowledge, among others. His theory of forms launched a unique perspective on abstract objects, and led to a school of thought called Platonism. Plato's writings have been published in several fashions; this has led to several conventions regarding the naming and referencing of Plato's texts.[4]
@@ -8,7 +10,6 @@ Plato's dialogues have been used to teach a range of subjects, including philoso
 Biography
 ---------
 
-![Plato by Raphael](http://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Plato-raphael.jpg/100px-Plato-raphael.jpg)
 > Plato from The School of Athens by Raphael, 1509
 
 Early life Works Platonism Epistemology Idealism / Realism Demiurge Theory of Forms Transcendentals Form of the Good Third man argument Euthyphro dilemma Five regimes Philosopher king 

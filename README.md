@@ -20,5 +20,5 @@ You can get the <a href="https://github.com/vinyll/anywhere/tree/gh-pages">demo 
 ## See it in action
 
 - [The current page](http://vinyll.github.io/anywhere/) itself is build with _Anywhere_
-- [Some basic demo](./basic-demo/)
-- [Some full fledged demo](./full-demo/)
+- [Some basic demo](./basic-demo/) with an article
+- Some full-fledged demo - to come (or how to build a full web page)

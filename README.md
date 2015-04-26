@@ -9,7 +9,6 @@ This JavaScript client lib enables rendering any Markdown page hosted on Github 
 
 Add this before your closing `</head>`:
 
-        <script src="https://cdn.rawgit.com/chjj/marked/master/marked.min.js"></script>
         <script src="https://cdn.rawgit.com/vinyll/anywhere/master/dist/anywhere.js"></script>
         <script>
             Anywhere = {user: "vinyll", repo: "anywhere", branch: "master"};
@@ -34,7 +33,7 @@ For a github user _vinyll_, pointing to a _anywhere_ repo on the branch _master_
         }
     </script>
 
-Now if you widh to get the content from the _my-content.md_ file, just add a `data-anywhere="my-content"` attribute to some tag in your HTML.
+Getting the content from the _my-content.md_ file is as simple as adding a `data-anywhere="my-content"` attribute to some HTML tag.
 You only need to mention the filename, not the filetype which will be appened (_.md_ extension).
 
 The example below will therefore get the markdown content from _https:github.com/vinyll/anywhere/my-content.md_, convert it into HTML and render it into.

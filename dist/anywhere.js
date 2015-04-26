@@ -1,6 +1,11 @@
 (function() {
   "use strict";
 
+  // Add marked to included scripts.
+  var script = document.createElement('script');
+  script.src = 'https://cdn.rawgit.com/chjj/marked/master/marked.min.js';
+  document.head.appendChild(script);
+
   var GithubExtractor = {
     /**
     Connect to rawgit.com, get the filename content and return it to
@@ -32,6 +37,7 @@
       http.send();
     }
   };
+
 
   window.addEventListener('load', function(event) {
     var name = "", markedContent = "", nodeDisplay = "", inlineContent = "";

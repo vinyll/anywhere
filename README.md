@@ -28,19 +28,23 @@ This will retrieve the _README.md_ file from the Github repo and replace the <p>
 
 ## Configuration
 
-For a github user _vinyll_, pointing to a _anywhere_ repo on the branch _master_, here's a sample config:
+For a github user _vinyll_, pointing to a _anywhere_ repo on the branch _mybranch_, here's a sample config:
 
     <script>
         Anywhere = {
           user: "vinyll",  // your github username
           repo: "anywhere",  // your github repository
-          branch: "master"  // the branch where the file is. Default is _master_
+          branch: "mybranch"  // the branch where the file is. Default is _master_
         }
     </script>
 
 The example below will therefore get the markdown content from _https://github.com/vinyll/anywhere/blob/master/README.md_, convert it into HTML and render it into some tag.
 
 See the [demo](http://vinyll.github.io/anywhere/) to see it in action or the [demo code](https://github.com/vinyll/anywhere/blob/gh-pages/index.html) to view how it works.
+
+> The inclusion script `<script src="https://cdn.rawgit.com/vinyll/anywhere/master/dist/anywhere.js"></script>` refers to the bleeding edge version of _Anywhere_.
+> To use a stable version you should call it with the version you want to use. For example `<script src="https://cdn.rawgit.com/vinyll/anywhere/0.1/dist/anywhere.js"></script>` to refer to version _0.1_.
+> To know what versions are available [refer to the github releases](https://github.com/vinyll/anywhere/releases).
 
 
 ## Markdown conversion

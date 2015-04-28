@@ -1,6 +1,13 @@
 # Anywhere JS
 
-This JavaScript client lib enables rendering any Markdown page hosted on Github inside of your HTML content.
+Makes your HTML content easily editable from Github in Markdown.
+
+## How does it work?
+
+1. Edit a file on your Github called _my-content.md_
+2. Set the attribute `data-anywhere="my-content"` on a tag in your HTML page
+
+Your tag content will be replaced with the one from _my-content.md_ and interpreted in HTML! Crazy huh!
 
 [View demo](http://vinyll.github.io/anywhere/)
 
@@ -10,9 +17,7 @@ This JavaScript client lib enables rendering any Markdown page hosted on Github 
 Add this before your closing `</head>`:
 
         <script src="https://cdn.rawgit.com/vinyll/anywhere/master/dist/anywhere.js"></script>
-        <script>
-            Anywhere = {user: "vinyll", repo: "anywhere", branch: "master"};
-        </script>
+        <script>Anywhere = {user: "vinyll", repo: "anywhere"};</script>
 
 Now use it adding the `data-anywhere` attribute telling the file to read from:
 
@@ -27,18 +32,15 @@ For a github user _vinyll_, pointing to a _anywhere_ repo on the branch _master_
 
     <script>
         Anywhere = {
-          user: "vinyll",
-          repo: "anywhere",
-          branch: "master"
+          user: "vinyll",  // your github username
+          repo: "anywhere",  // your github repository
+          branch: "master"  // the branch where the file is. Default is _master_
         }
     </script>
 
-Getting the content from the _my-content.md_ file is as simple as adding a `data-anywhere="my-content"` attribute to some HTML tag.
-You only need to mention the filename, not the filetype which will be appened (_.md_ extension).
+The example below will therefore get the markdown content from _https://github.com/vinyll/anywhere/blob/master/README.md_, convert it into HTML and render it into some tag.
 
-The example below will therefore get the markdown content from _https:github.com/vinyll/anywhere/my-content.md_, convert it into HTML and render it into.
-
-See the [demo code](https://github.com/vinyll/anywhere/blob/gh-pages/index.html) to view a full working example or the [demo](http://vinyll.github.io/anywhere/) to see it in action.
+See the [demo](http://vinyll.github.io/anywhere/) to see it in action or the [demo code](https://github.com/vinyll/anywhere/blob/gh-pages/index.html) to view how it works.
 
 
 ## Markdown conversion
@@ -54,6 +56,7 @@ See the [demo code](https://github.com/vinyll/anywhere/blob/gh-pages/index.html)
 ## Usage
 
 With this lib you can use Github as a content editor with git powers and Github benefits.
+You could also use it as your CMS.
 Please let me know your usage.
 
 

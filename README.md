@@ -16,14 +16,14 @@ Your tag content will be replaced with the one from _my-content.md_ and interpre
 
 Add this before your closing `</head>`:
 
-        <script src="https://cdn.rawgit.com/vinyll/anywhere/master/dist/anywhere.js"></script>
-        <script>Anywhere = {user: "vinyll", repo: "anywhere"};</script>
+    <script>Anywhere = {user: "vinyll", repo: "anywhere"};</script>
+    <script src="https://cdn.rawgit.com/vinyll/anywhere/master/dist/anywhere.js"></script>
 
 Now use it adding the `data-anywhere` attribute telling the file to read from:
 
-    <p data-anywhere="README">default content</p>
+    <div data-anywhere="README"></div>
 
-This will retrieve the _README.md_ file from the Github repo and replace the <p> tag content.
+This will retrieve the _README.md_ file from the Github repo and replace the `<p>` tag content.
 
 
 ## Configuration

@@ -45,6 +45,7 @@
         }
 
         node.innerHTML = markedContent;
+        node.dispatchEvent(new CustomEvent('update', {'detail': markedContent}));
       });
     }
   }
@@ -86,11 +87,15 @@
   /**
   * Wait for the DOM to be loaded, detect all 'data-anywhere' attributes and
   * load their content.
+  * Also allow the `update()` method
   */
   window.addEventListener('load', function(event) {
 
     [].forEach.call(document.querySelectorAll('[data-anywhere]'), function(node) {
       Anywhere.updateNode(node);
+      node.update = function() {
+        Anywhere.updateNode(this);
+      };
     });
   });
 

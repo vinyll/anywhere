@@ -47,6 +47,33 @@ See the [demo](http://vinyll.github.io/anywhere/) to see it in action or the [de
 > To know what versions are available [refer to the github releases](https://github.com/vinyll/anywhere/releases).
 
 
+## Events
+
+### Getting informed when ready
+
+Any DOM node with `data-anywhere` attribute will dispatch an `update` event
+when ready.
+
+    var mydiv = document.querySelector('#mydiv');
+    mydiv.addEventListener('update', function(e) {
+      console.log('mydiv content was updated! new content:', e.detail);
+    }
+
+You can therefore be informed whenever the content has been updated.
+
+### Change the DOM on the run
+
+the `update()` event is available on all the DOM nodes where you apply `data-anywhere` attribute.
+
+Therefore you can force-update a refresh on the node to reload its content:
+    
+    var mydiv = document.querySelector('#mydiv');
+    mydiv.attributes['data-anywhere'].value = 'other-github-file';
+    mydiv.update();
+
+This will load _other-github-file_ from Github and update mydiv with the content retrieved.
+
+
 ## Markdown conversion
 
 'Anywhere' uses [marked](https://github.com/chjj/marked) to convert Github's Markdown to HTML.

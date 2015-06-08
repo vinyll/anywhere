@@ -1,103 +1,133 @@
-(function() {
-  "use strict";
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-  /**
-  * Add marked to included scripts.
-  */
-  var script = document.createElement('script');
-  script.src = 'https://cdn.rawgit.com/chjj/marked/master/marked.min.js';
-  document.head.appendChild(script);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-  /**
-  * Anywhere local object reads its config from window.Anywhere.
-  */
-  var Anywhere = {
-    // Storing configuration
-    _config: null,
+Anywhere = {
+  version: '0.3',
+  config: { 'default': {} }
+};
 
-    // Retrieve the config (user, repo, branch).
-    getConfig: function() {
-      if(!this._config) {
-        this._config = window.Anywhere;
-      }
-      return this._config;
-    },
+/**
+* Add marked to included scripts.
+*/
+var script = document.createElement('script');
+script.src = 'https://cdn.rawgit.com/chjj/marked/master/marked.min.js';
+document.head.appendChild(script);
 
-    // Update a DOM node content reading from Github and injecting the text
-    // into the innerHTML.
-    // Strip the <p> if the node is an 'inline' style.
-    updateNode: function(node) {
+/**
+* Anywhere local object reads its config from window.Anywhere.
+*/
 
-      var config = Anywhere.getConfig();
-      config['filename'] = node.attributes['data-anywhere'].value;
+var DOMWrapper = (function () {
+  function DOMWrapper(node) {
+    _classCallCheck(this, DOMWrapper);
 
-      GithubExtractor.getContentFromFile(config, function(response) {
-        var nodeDisplay = node.style.display
-                        || window.getComputedStyle(node).display;
-        var markedContent = marked(response);
-
-        // If the node is type 'inline', strip out the <p> tag from marked.
-        if(nodeDisplay === 'inline') {
-          inlineContent = markedContent.match(/^<p>(.*)<\/p>\s*$/);
-          if(inlineContent.length > 1) {
-            markedContent = inlineContent[1];
-          }
-        }
-
-        node.innerHTML = markedContent;
-        node.dispatchEvent(new CustomEvent('update', {'detail': markedContent}));
-      });
-    }
+    this.node = node;
+    this.node.anywhere = this;
   }
 
-  /**
-  * Github content connector and content extractor.
-  */
-  var GithubExtractor = {
+  _createClass(DOMWrapper, [{
+    key: 'updateFromString',
+    value: function updateFromString(string) {
+      this.node.innerHTML = string;
+      this.dispatchUpdate(string);
+    }
+  }, {
+    key: 'updateFromMarkdown',
+    value: function updateFromMarkdown(mark) {
+      var html = marked(mark);
+      // If the node is type 'inline', strip out the <p> tag from marked.
+      if (this.getDisplayType() === 'inline') {
+        inlineContent = html.match(/^<p>(.*)<\/p>\s*$/);
+        if (inlineContent.length > 1) {
+          html = inlineContent[1];
+        }
+      }
+      return this.updateFromString(html);
+    }
+  }, {
+    key: 'dispatchUpdate',
+    value: function dispatchUpdate(info) {
+      this.node.dispatchEvent(new CustomEvent('update', { 'detail': info }));
+    }
+  }, {
+    key: 'getDisplayType',
+    value: function getDisplayType() {
+      return this.node.style.display || window.getComputedStyle(this.node).display;
+    }
+  }]);
+
+  return DOMWrapper;
+})();
+
+/**
+* Github content connector and content extractor.
+*/
+
+var GithubExtractor = (function () {
+  function GithubExtractor(config) {
+    _classCallCheck(this, GithubExtractor);
+
+    if (!config) {
+      throw new Error('You should declare a config object with \'user\' and\n        \'repo\' keys.');
+    }
+    this.config = config;
+  }
+
+  _createClass(GithubExtractor, [{
+    key: 'getUrl',
+
+    // Build the url based on the config.
+    value: function getUrl(config) {
+      var branch = config.branch || 'master';
+      return 'https://rawgit.com/' + config.user + '/' + config.repo + '/' + branch + ('/' + config.filename + '.md');
+    }
+  }, {
+    key: 'getContentFromFile',
+
     // Connect to rawgit.com, get the filename content and return it to
     // the callback.
     // `config` is an object with these keys: `user`, `branch`, `repo`,
     // `filename`.
-    getContentFromFile: function(config, callback) {
-      if(!config) {
-        throw new Error("You should declare an 'Anywhere' object with " +
-                        "'user', 'repo' and 'branch' keys.");
-      }
-      var url = "https://rawgit.com/{user}/{repo}/{branch}/{filename}.md"
-                .replace('{user}', config.user)
-                .replace('{repo}', config.repo)
-                .replace('{branch}', config.branch || 'master')
-                .replace('{filename}', config.filename);
-
+    value: function getContentFromFile(callback) {
       var http = new XMLHttpRequest();
-      http.open("GET", url, true);
-      http.onreadystatechange = function() {
+      var url = this.getUrl(this.config);
+      http.open('GET', url, true);
+      http.onreadystatechange = function () {
         if (http.readyState === 4 && http.status === 200) {
           callback(http.responseText);
-        } else if(http.status !== 200) {
-          throw new Error("'Anywhere' could not parse '{url}'." +
-                          "Please check your 'Anywhere' configuration."
-                          .replace('{url}', url));
+        } else if (http.status && http.status !== 200) {
+          throw new Error('Could not parse \'' + url + '\'.\n          Please check your configuration.');
         }
-      }
+      };
       http.send();
     }
-  };
+  }]);
 
-  /**
-  * Wait for the DOM to be loaded, detect all 'data-anywhere' attributes and
-  * load their content.
-  * Also allow the `update()` method
-  */
-  window.addEventListener('load', function(event) {
-
-    [].forEach.call(document.querySelectorAll('[data-anywhere]'), function(node) {
-      Anywhere.updateNode(node);
-      node.update = function() {
-        Anywhere.updateNode(this);
-      };
-    });
-  });
-
+  return GithubExtractor;
 })();
 
+;
+
+/**
+* Wait for the DOM to be loaded, detect all 'data-anywhere' attributes and
+* load their content.
+* Also allow the `update()` method
+*/
+window.addEventListener('load', function (event) {
+  var config = Anywhere.config['default'];
+  [].forEach.call(document.querySelectorAll('[data-anywhere]'), function (node) {
+    config.filename = node.attributes['data-anywhere'].value;
+    var extractor = new GithubExtractor(config);
+    var nodeObj = new DOMWrapper(node);
+    // On DOM load, read the content.
+    extractor.getContentFromFile(function (r) {
+      nodeObj.updateFromMarkdown(r);
+    });
+
+    // When update() is invoqued on the node, update the content.
+    node.update = function () {
+      nodeObj.updateFromFile(extractor);
+    };
+  });
+});

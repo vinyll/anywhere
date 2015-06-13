@@ -15,7 +15,7 @@ script.src = 'https://cdn.rawgit.com/chjj/marked/master/marked.min.js';
 document.head.appendChild(script);
 
 /**
-* Anywhere local object reads its config from window.Anywhere.
+* DOMWrapper is a wrapper for a DOM node to enpower its methods.
 */
 
 var DOMWrapper = (function () {
@@ -127,7 +127,10 @@ window.addEventListener('load', function (event) {
 
     // When update() is invoqued on the node, update the content.
     node.update = function () {
-      nodeObj.updateFromFile(extractor);
+      extractor.config.filename = node.attributes['data-anywhere'].value;
+      extractor.getContentFromFile(function (r) {
+        nodeObj.updateFromMarkdown(r);
+      });
     };
   });
 });
